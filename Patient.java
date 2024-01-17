@@ -205,6 +205,8 @@ System.out.println("-----------------------------------------");
 
 
      void patientlogin() throws Exception{
+      System.out.println("enter the patientname");
+      String name1=s.nextLine();
       System.out.println("enter your mobile no to enter in site:"); 
         // s.nextLine();   
               String mob=s.nextLine();
@@ -221,7 +223,9 @@ System.out.println("-----------------------------------------");
       Scanner s=new Scanner(System.in);
           System.out.println("press 1:view Profile");
           System.out.println("press 2:BookAppointment");
+          System.out.println("press 3:view appointment");
            System.out.println("press 3:give feedback");
+           System.out.println("press 4:view reports");
            System.out.println("enter choice:");
            int n1=s.nextInt();
            switch(n1)
@@ -234,6 +238,7 @@ System.out.println("-----------------------------------------");
             case 2:
             {
               System.out.println("enter date");
+              s.nextLine();
               String date=s.nextLine();
               java.sql.PreparedStatement p2 = con.prepareStatement("select * from patientdetail where phoneno=?");
               p2.setString(1, mob);
@@ -241,12 +246,38 @@ System.out.println("-----------------------------------------");
               while(rs1.next())
               {
                 name=rs1.getString("name");
-                date=rs1.getString("date");
+                // date=rs1.getString("date");
                 address=rs1.getString("address");
                 phoneno=rs1.getString("phoneno");
               }
               BookAppointment(name, date ,address,phoneno);
+              break;
             }
+            case 3:
+            System.out.println("enter the patientname");
+            
+            String n=s.next();
+            System.out.println("enter your mobile no to enter in site:"); 
+           
+                    String m=s.next();
+              
+                  PreparedStatement ps = con.prepareStatement( "select * from patientappoint where phoneno=?");
+            ps.setString(1, m);
+            ResultSet r=ps.executeQuery();
+            while(r.next())
+            {
+              String  name2=r.getString("name");
+              String  address2=r.getString("address");
+               String phoneno2=r.getString("phoneno");
+               String  drname2=r.getString("drname");
+               String  time2=r.getString("time");
+               String date2=r.getString("date");
+               String  BookAppointment2=r.getString("BookAppointment");
+               System.out.println("----------------------------------------------");
+               System.out.println(name2+" "+address2+ " "+phoneno2+" "+drname2+" "+time2+" "+date2+" "+BookAppointment2);
+               System.out.println("----------------------------------------------");
+            }
+             break;
            }
           }
           else{
