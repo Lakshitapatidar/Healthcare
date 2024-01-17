@@ -31,6 +31,8 @@ public class doctor extends database {
     void drdetail(String email){
       System.out.println("press 1:view profile");
       System.out.println("press 2:view appointment");
+      System.out.println("press 3:attend patient");
       System.out.println("press 3:view reports");
+
     }
 }

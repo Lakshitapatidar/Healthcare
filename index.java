@@ -43,7 +43,7 @@ class index {
                     }
                     break;
                 case 2:
-              
+              doctor d=new doctor();
                 x=n;
                     break;
                 case 3:
