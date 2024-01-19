@@ -11,7 +11,7 @@ public class Patient extends database{
   
   void BookAppointment(String name,String date ,String address,String phoneno) throws ClassNotFoundException, SQLException{
       System.out.println("enter the disease");
-      String disease=s.nextLine();
+      String disease=s.next();
       String drName="";
       System.out.println("Book your Appointment from  among this doctors");
       if(disease.contains("heart")|| disease.contains("blood")){
