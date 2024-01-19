@@ -7,6 +7,10 @@ public class doctor extends database{
   String email;
   String password;
   String name;
+  String drname;
+  String patname;
+  String disease;
+   String dremail;
   String specialist="";
     Scanner sc=new Scanner(System.in);
     doctor() throws Exception{
@@ -91,8 +95,7 @@ public class doctor extends database{
         break;
         case 3:
         apoint();
-        String patname;
-        String disease;
+       
         System.out.println("select aptient number for appointment");
         String num=sc.next();
         String str1="select * from patientdetail where phoneno=?";
@@ -105,12 +108,25 @@ public class doctor extends database{
           disease=s.getString("disease");
       }
 
-
-
         String str2="select * from doctordetail where email=?";
         PreparedStatement p2 = con.prepareStatement(str2);
          p2.setString(1, email);
           ResultSet rr=p2.executeQuery();
+          while(rr.next()){
+            drname=rr.getString("name");
+            dremail=rr.getString("email");
+          }
+          System.out.println(" cure for patient");
+          sc.nextLine();
+          String cure =sc.nextLine();
+          String str3="insert into reports values(?,?,?,?,?)";
+          PreparedStatement p3 = con.prepareStatement(str3);
+          p3.setString(1, drname);
+          p3.setString(2, dremail);
+          p3.setString(3, patname);
+          p3.setString(4, disease);
+          p3.setString(5, cure);
+     p3.executeUpdate();
         break;
         case 4:
         break;
