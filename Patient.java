@@ -8,138 +8,11 @@ import java.sql.PreparedStatement;
 public class Patient extends database {
   String name, date, address, phoneno;
   Scanner s = new Scanner(System.in);
-
-  // void BookAppointment(String name,String date ,String address,String phoneno)
-  // throws ClassNotFoundException, SQLException{
-  // System.out.println("enter the disease");
-  // String disease=s.next();
-  // String drName="";
-  // System.out.println("Book your Appointment from among this doctors");
-  // if(disease.contains("heart")|| disease.contains("blood")){
-  // System.out.println("1.DR.Arnav Sharma ");
-  // System.out.println("Cardiologists Experience:30years");
-  // System.out.println("MBBS (1971), MD (1979), Dip. Card. (1976), FCCP");
-  // System.out.println();
-  // System.out.println("Book your Appointment from among this doctors");
-  // System.out.println("2.DR.Rohit Arora ");
-  // System.out.println("Cardiologists Experience:20years");
-  // System.out.println("MBBS (1981), MD (1990), Dip. Card. (1986)");
-  // System.out.println();
-  // System.out.println("select the doctor by pressing the no");
-  // int num=s.nextInt();
-  // if(num==1)
-  // {
-  // drName="Dr.Arnav sharma";
-  // }
-  // else{
-  // drName="Dr.Rohit Arora";
-  // }
-
-  // }
-  // if(disease.contains("cough")|| disease.contains("cold"))
-  // {
-  // System.out.println("1.DR.Arush patidar ");
-  // System.out.println("Ear-Nose-Throat (ENT) Specialist Experience:10years");
-  // System.out.println("MBBS, MS - ENT");
-  // System.out.println();
-  // System.out.println();
-  // System.out.println("2.DR.Rohit vyas ");
-  // System.out.println("Ear-Nose-Throat (ENT) Specialist Experience:10years");
-  // System.out.println("MBBS, MS - ENT");
-  // System.out.println();
-  // System.out.println("select the doctor by pressing the no");
-  // int num=s.nextInt();
-  // if(num==1)
-  // {
-  // drName="Dr.Arush patidar";
-  // }
-  // else{
-  // drName="Dr.Rohit vyas";
-  // }
-  // }
-  // if(disease.contains("sugar"))
-  // {
-  // System.out.println("1.DR.Ram patidar ");
-  // System.out.println("Diabities Specialist Experience:5years");
-  // System.out.println("M.D");
-  // System.out.println();
-  // System.out.println();
-  // System.out.println("2.DR.priya singh ");
-  // System.out.println("Diabities Specialist Experience:10years");
-  // System.out.println("MBBS, M.D");
-  // System.out.println();
-  // System.out.println("select the doctor by pressing the no");
-  // int num=s.nextInt();
-  // if(num==1)
-  // {
-  // drName="Dr.Ram patidar";
-  // }
-  // else{
-  // drName="Dr.priya singh";
-  // }
-  // }
-  // if(disease.contains("asthma"))
-  // {
-  // System.out.println("1.DR.Sanaa khanna");
-  // System.out.println(" Pulmonologists Specialist Experience:5years");
-  // System.out.println("MBBS ");
-  // System.out.println();
-  // System.out.println();
-  // System.out.println("2.DR.urmesh singh ");
-  // System.out.println("Pulmonologists Specialist Experience:10years");
-  // System.out.println("MBBS, MS - ENT");
-  // System.out.println();
-  // System.out.println("select the doctor by pressing the no");
-  // int num=s.nextInt();
-  // if(num==1)
-  // {
-  // drName="Dr.sanna khanna";
-  // }
-  // else{
-  // drName="Dr.urmesh singh";
-  // }
-
-  // }
-
-  // System.out.println("Pay 500 rs for registration : ");
-  // int n=s.nextInt();
-
-  // if(n==500)
-  // {
-  // System.out.println("**********your appointment is fixed**********");
-  // System.out.println();
-
-  // }
-
-  // String str1="insert into
-  // patientAppoint(name,address,phoneno,drName,time,date,BookAppointment)
-  // values(?,?,?,?,?,?,?)";
-  // java.sql.PreparedStatement p1 = con.prepareStatement(str1);
-  // int y=2;
-  // String time=y+":00 pm";
-  // p1.setString(1,name);
-  // p1.setString(2,address);
-  // p1.setString(3,phoneno);
-  // p1.setString(4,drName);
-  // p1.setString(5,time);
-  // p1.setString(6,date);
-  // p1.setString(7,"Done");
-  // y++;
-  // int j = p1.executeUpdate();
-  // if (j > 0) {
-  // System.out.println("visit again");
-  // System.out.println();
-  // } else {
-  // System.out.println("some errors");
-  // }
-  // }
-
-  // -------------------------------------------------------------------------
     String Drname;
     String name2;
     String address2;
     String phoneno2;
-  void bookappoint() throws Exception {
+  void bookappoint(String num) throws Exception {
     String special = "";
     System.out.println("enter your disease");
     String disease = s.nextLine();
@@ -187,24 +60,24 @@ public class Patient extends database {
       // System.out.println("---------------- "+Drname); 
     }
     String str1 = "select * from patientdetail where phoneno=?";
-
+   System.out.println(num+"tyu");
     PreparedStatement p1 = con.prepareStatement(str1);
-    p1.setString(1, phoneno);
+    p1.setString(1, num);
     ResultSet r = p1.executeQuery();
     while (r.next()) {
-      System.out.println("hjjkkk");
-      name = r.getString("name");
-       address = r.getString("address");
-      phoneno = r.getString("phoneno");
+      name2 = r.getString("name");
+       address2 = r.getString("address");
+      phoneno2 = r.getString("phoneno");
 
     }
-    String str6 = "insert into patientAppoint(name,address,phoneno,drName,time,date,BookAppointment) values(?,?,?,?,?,?,?)";
+    System.out.println(name2+" "+address2+" "+phoneno2+" ");
+    String str6 = "insert into patientAppoint value(?,?,?,?,?,?,?)";
     java.sql.PreparedStatement p6 = con.prepareStatement(str6);
     int y = 2;
     String time = y + ":00 pm";
-    p6.setString(1, name);
-    p6.setString(2, address);
-    p6.setString(3, phoneno);
+    p6.setString(1, name2);
+    p6.setString(2, address2);
+    p6.setString(3, phoneno2);
     p6.setString(4, Drname);
     p6.setString(5, time);
     p6.setString(6, date);
@@ -249,7 +122,7 @@ public class Patient extends database {
 
     System.out.println("Book your Appointment");
     // BookAppointment(name, date ,address,phoneno);
-    bookappoint();
+    bookappoint(phoneno);
   }
 
   void profile(String mob) throws Exception {
@@ -304,32 +177,12 @@ public class Patient extends database {
           break;
         }
         case 2: {
-          // System.out.println("enter date");
-          // s.nextLine();
-          // String date=s.nextLine();
-          // java.sql.PreparedStatement p2 = con.prepareStatement("select * from
-          // patientdetail where phoneno=?");
-          // p2.setString(1, mob);
-          // ResultSet rs1=p2.executeQuery();
-          // while(rs1.next())
-          // {
-          // name=rs1.getString("name");
-          // // date=rs1.getString("date");
-          // address=rs1.getString("address");
-          // phoneno=rs1.getString("phoneno");
-          // }
-          // BookAppointment(name, date ,address,phoneno);
-          bookappoint();
+        
+          bookappoint(phoneno);
           pr=n1;
           break;
         }
         case 3:
-          // System.out.println("enter the patientname");
-
-          // String n = s.next();
-          // System.out.println("enter your mobile no to enter in site:");
-
-          // String m = s.next();
    System.out.println(phoneno);
           PreparedStatement ps = con.prepareStatement("select * from patientappoint where phoneno=?");
           ps.setString(1, phoneno);
