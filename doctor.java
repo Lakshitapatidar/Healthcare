@@ -18,6 +18,7 @@ public class doctor extends database{
          email=sc.nextLine();
         System.out.println("enter the password");
          password=sc.nextLine();
+         System.out.println("____________succesfully login_____________");
          PreparedStatement p2 = con.prepareStatement("select * from doctordetail where email=?");
               p2.setString(1, email);
               ResultSet rs1=p2.executeQuery();
@@ -136,7 +137,7 @@ public class doctor extends database{
      PreparedStatement p4 = con.prepareStatement(str4);
      p4.setString(1, num);
    p4.executeUpdate();
-  
+    System.out.println("-----patient attended succesfully--------");
   pa=m;
         break;
         case 4:

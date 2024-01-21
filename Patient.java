@@ -60,7 +60,6 @@ public class Patient extends database {
       // System.out.println("---------------- "+Drname); 
     }
     String str1 = "select * from patientdetail where phoneno=?";
-   System.out.println(num+"tyu");
     PreparedStatement p1 = con.prepareStatement(str1);
     p1.setString(1, num);
     ResultSet r = p1.executeQuery();
@@ -70,7 +69,6 @@ public class Patient extends database {
       phoneno2 = r.getString("phoneno");
 
     }
-    System.out.println(name2+" "+address2+" "+phoneno2+" ");
     String str6 = "insert into patientAppoint value(?,?,?,?,?,?,?)";
     java.sql.PreparedStatement p6 = con.prepareStatement(str6);
     int y = 2;
@@ -120,9 +118,89 @@ public class Patient extends database {
       System.out.println("some errors");
     }
 
-    System.out.println("Book your Appointment");
-    // BookAppointment(name, date ,address,phoneno);
-    bookappoint(phoneno);
+    // System.out.println("Book your Appointment");
+    // // BookAppointment(name, date ,address,phoneno);
+    // bookappoint(phoneno);
+    int pr=0;
+    do{
+      System.out.println("press 1:view Profile");
+      System.out.println("press 2:BookAppointment");
+      System.out.println("press 3:view appointment");
+      System.out.println("press 4:give feedback");
+      System.out.println("press 5:view reports");
+      System.out.println("enter choice:");
+      int n1 = s.nextInt();
+      switch (n1) {
+        case 1: {
+          profile(phoneno);
+          pr=n1;
+          break;
+        }
+        case 2: {
+        
+          bookappoint(phoneno);
+          System.out.println("************your appointment is successfully booked***************");
+          pr=n1;
+          break;
+        }
+        case 3:
+
+          PreparedStatement ps = con.prepareStatement("select * from patientappoint where phoneno=?");
+          ps.setString(1, phoneno);
+          ResultSet r = ps.executeQuery();
+          while (r.next()) {
+            String name2 = r.getString("name");
+            String address2 = r.getString("address");
+            String phoneno2 = r.getString("phoneno");
+            String drname2 = r.getString("drname");
+            String time2 = r.getString("time");
+            String date2 = r.getString("date");
+            String BookAppointment2 = r.getString("BookAppointment");
+            System.out.println("----------------------------------------------");
+            System.out.println(name2 + "  " + address2 + "  " + phoneno2 + "  " + drname2 + "  " + time2 + "  " + date2 + "  "
+                + BookAppointment2);
+            System.out.println("----------------------------------------------");
+          }
+          pr=n1;
+
+          break;
+          case 4:
+          System.out.println("give your feedback ");
+          s.nextLine();
+          String strs=s.nextLine();
+          PreparedStatement psa = con.prepareStatement("insert into feedbacktable value(?,?,?)");
+          psa.setString(1, name1);
+          psa.setString(2, phoneno);
+          psa.setString(3, strs);
+          psa.executeUpdate();
+       System.out.println("_____________your feedack is recorded____________________");
+          pr=n1;
+          break;
+          case 5:
+          System.out.println(name1);
+          PreparedStatement ps1 = con.prepareStatement("select * from reports where patname=?");
+          ps1.setString(1, name1);
+          ResultSet rss1 = ps1.executeQuery();
+          while (rss1.next()) {
+            String name2 = rss1.getString("drName");
+            String address2 = rss1.getString("dremail");
+            String phoneno2 = rss1.getString("patname");
+            String drname2 = rss1.getString("disease");
+            String time2 = rss1.getString("cure");
+          
+            System.out.println("----------------------------------------------");
+            System.out.println(name2 + " " + address2 + " " + phoneno2 + " " + drname2 + " " + time2 + " " );
+            System.out.println("----------------------------------------------");
+          }
+          pr=n1;
+          break;
+          default:
+          System.out.println("---------------------------------------");
+          System.out.println("thanks to login");
+          System.out.println("---------------------------------------");
+          return;
+      }
+    }while (pr<6) ;
   }
 
   void profile(String mob) throws Exception {
@@ -150,6 +228,7 @@ public class Patient extends database {
     System.out.println("enter your mobile no to enter in site:");
     // s.nextLine();
      phoneno = s.nextLine();
+     System.out.println("_____welcome to your page_____");
     int flag = 0;
 
     String str = "select * from patientdetail where phoneno=?";
@@ -180,10 +259,11 @@ public class Patient extends database {
         
           bookappoint(phoneno);
           pr=n1;
+
+          System.out.println("___________________your appointment is booked successfully____________________");
           break;
         }
         case 3:
-   System.out.println(phoneno);
           PreparedStatement ps = con.prepareStatement("select * from patientappoint where phoneno=?");
           ps.setString(1, phoneno);
           ResultSet r = ps.executeQuery();
@@ -212,7 +292,7 @@ public class Patient extends database {
           psa.setString(2, phoneno);
           psa.setString(3, strs);
           psa.executeUpdate();
-
+   System.out.println("______________your feeback is recorded_______________");
           pr=n1;
           break;
           case 5:
