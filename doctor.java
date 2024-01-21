@@ -65,6 +65,8 @@ public class doctor extends database{
              }
     }
     void drdetail(String email)throws Exception{
+      int pa=0;
+      do{
       System.out.println("press 1:view profile");
       System.out.println("press 2:view appointment");
       System.out.println("press 3:attend patient");
@@ -90,9 +92,11 @@ public class doctor extends database{
            System.out.println(name+" "+email+ " "+password+" "+specialist+" "+experience+" "+fees+" "+phoneno);
            System.out.println("----------------------------------------------");
                }
+               pa=m;
         break;
         case 2:
        apoint();
+       pa=m;
         break;
         case 3:
         apoint();
@@ -128,15 +132,35 @@ public class doctor extends database{
           p3.setString(4, disease);
           p3.setString(5, cure);
      p3.executeUpdate();
-  //    String str4="delete from  patientdetail where phoneno=?";
-  //    PreparedStatement p4 = con.prepareStatement(str4);
-  //    p4.setString(1, num);
-  //  p4.executeUpdate();
+     String str4="delete from  patientAppoint where phoneno=?";
+     PreparedStatement p4 = con.prepareStatement(str4);
+     p4.setString(1, num);
+   p4.executeUpdate();
+  
+  pa=m;
         break;
         case 4:
+        PreparedStatement ps1 = con.prepareStatement("select * from reports where patname=?");
+        ps1.setString(1, patname);
+        ResultSet rss1 = ps1.executeQuery();
+        while (rss1.next()) {
+          String name2 = rss1.getString("drName");
+          String address2 = rss1.getString("dremail");
+          String phoneno2 = rss1.getString("patname");
+          String drname2 = rss1.getString("disease");
+          String time2 = rss1.getString("cure");
+        
+          System.out.println("----------------------------------------------");
+          System.out.println(name2 + " " + address2 + " " + phoneno2 + " " + drname2 + " " + time2 + " " );
+          System.out.println("----------------------------------------------");
+        }
+        pa=m;
         break;
-
+     default :
+     System.out.println("thanks to be with us");
+     return;
       }
+    }while(pa<5);
 
     }
 }

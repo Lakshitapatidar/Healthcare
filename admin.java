@@ -13,6 +13,8 @@ public class admin extends database {
     String phoneno;
 
     admin() throws Exception {
+        int y=0;
+        do{
         System.out.println("press 1: Add doctor");
         System.out.println("press 2:Remove doctor");
         System.out.println("press 3:view patientList");
@@ -47,7 +49,8 @@ public class admin extends database {
           p3.setString(6, fees);
           p3.setString(7,phoneno);
      p3.executeUpdate();
-
+ y=n;
+ System.out.println("______________Dr. added successfully ____________");
                 break;
 
             case 2:
@@ -59,9 +62,10 @@ public class admin extends database {
             PreparedStatement p2 = con.prepareStatement(str2);
             p2.setString(1, s);
            p2.executeUpdate();
-                  
+                  System.out.println("_____________________________________________");
                     System.out.println("doctor removed");
-                   
+                    System.out.println("____________________________________________");
+                   y=n;
                 break;
             case 3:
             String str1="select * from patientdetail ";
@@ -78,6 +82,7 @@ public class admin extends database {
         System.out.println(name+" "+address+ " "+age+" "+phoneno+" "+bloodgroup+" "+disease);
         System.out.println("----------------------------------------------");
       }
+      y=n;
                 break;
             case 4:
               String str="select * from doctordetail ";
@@ -95,10 +100,31 @@ public class admin extends database {
            System.out.println(name+" "+email+ " "+password+" "+specialist+" "+experience+" "+fees+" "+phoneno);
            System.out.println("----------------------------------------------");
                }
+               y=n;
                 break;
             case 5:
+            String strr="select * from feedbacktable";
+            PreparedStatement paa = con.prepareStatement(strr);
+              ResultSet rsa=paa.executeQuery();
+                   while(rsa.next()) {
+              String  name=rsa.getString("name");
+              String email=rsa.getString("phoneno");
+              String  password=rsa.getString("feedback");
+              
+               System.out.println("----------------------------------------------");
+               System.out.println(name+" "+email+ " "+password+" ");
+               System.out.println("----------------------------------------------");
+                   }
+            y=n;
                 break;
+                default:
+                System.out.println("__________________________--");
+                System.out.println("thanks to admin ");
+                System.out.println("_______________________________");
+                return;
+        
         }
+    }while(y<6);
 
     }
 }
