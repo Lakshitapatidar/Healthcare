@@ -47,6 +47,7 @@ class index {
                 x=n;
                     break;
                 case 3:
+                admin a=new admin();
                 x=n;
                     break;
                 default:

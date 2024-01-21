@@ -38,9 +38,7 @@ public class doctor extends database{
     }
     void apoint()throws Exception
     {
-      String str1="select * from patientappoint where drName=?";
-
-      PreparedStatement p1 = con.prepareStatement(str1);
+  
       String str2="select * from doctordetail where email=?";
       PreparedStatement p2 = con.prepareStatement(str2);
        p2.setString(1, email);
@@ -48,6 +46,9 @@ public class doctor extends database{
              while(rr.next()) {
               name=rr.getString("name");
              }
+             String str1="select * from patientappoint where drName=?";
+
+             PreparedStatement p1 = con.prepareStatement(str1);
       p1.setString(1,name);
    ResultSet r=p1.executeQuery();
              while(r.next()) {
@@ -82,7 +83,7 @@ public class doctor extends database{
           String  name=rs.getString("name");
           String  password=rs.getString("password");
            String specialist=rs.getString("specialist");
-           String experience=rs.getString("specialist");
+           String experience=rs.getString("experience");
            String fees=rs.getString("fees");
            String phoneno=rs.getString("phoneno");
            System.out.println("----------------------------------------------");
@@ -96,7 +97,7 @@ public class doctor extends database{
         case 3:
         apoint();
        
-        System.out.println("select aptient number for appointment");
+        System.out.println("select patient number for appointment");
         String num=sc.next();
         String str1="select * from patientdetail where phoneno=?";
         PreparedStatement p1 = con.prepareStatement(str1);
@@ -127,6 +128,10 @@ public class doctor extends database{
           p3.setString(4, disease);
           p3.setString(5, cure);
      p3.executeUpdate();
+  //    String str4="delete from  patientdetail where phoneno=?";
+  //    PreparedStatement p4 = con.prepareStatement(str4);
+  //    p4.setString(1, num);
+  //  p4.executeUpdate();
         break;
         case 4:
         break;
